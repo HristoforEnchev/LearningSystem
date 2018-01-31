@@ -24,7 +24,13 @@
             services.AddDbContext<LearningSystemDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options => 
+            {
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            })
                 .AddEntityFrameworkStores<LearningSystemDbContext>()
                 .AddDefaultTokenProviders();
 

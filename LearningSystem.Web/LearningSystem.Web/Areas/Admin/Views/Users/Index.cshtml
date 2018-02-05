@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdminUserListingServiceModel>
+﻿@model AdminUsersViewModel
 @{
     ViewData["Title"] = "User Administration";
 }
@@ -14,10 +14,13 @@
             <th>
                 Email
             </th>
+            <th>
+                Add to Role
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (var user in Model.Users)
         {
             <tr>
                 <td>
@@ -25,6 +28,19 @@
                 </td>
                 <td>
                     @user.Email
+                </td>
+                <td>
+                    <form method="post" asp-controller="Users" asp-action="AddToRole">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="hidden" name="UserId" value="@user.Id" />
+                                <select name="Role" asp-items="@Model.Roles" class="form-control"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-default" value="Add to Role" />
+                            </div>
+                        </div>
+                    </form>
                 </td>
             </tr>
         }

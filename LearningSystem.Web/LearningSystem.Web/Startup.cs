@@ -9,6 +9,7 @@
     using LearningSystem.Data;
     using LearningSystem.Data.Models;
     using LearningSystem.Web.Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -36,7 +37,10 @@
 
             services.AddDomainServices();
 
-            services.AddMvc();
+            services.AddMvc(options => 
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

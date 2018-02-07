@@ -22,7 +22,6 @@
 
         public DateTime EndDate { get; set; }
 
-
         public string TrainerId { get; set; }
 
         public User Trainer { get; set; }

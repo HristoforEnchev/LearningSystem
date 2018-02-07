@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
+    using Infrastructure.Extensions;
     using LearningSystem.Data.Models;
     using LearningSystem.Services.Admin;
     using LearningSystem.Web.Areas.Admin.Models.Users;
@@ -9,11 +10,11 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Linq;
     using System.Threading.Tasks;
+
     using static WebConstants;
 
-    [Area("Admin")]
-    [Authorize(Roles = AdministratorRole)]
-    public class UsersController : Controller
+    
+    public class UsersController : BaseAdminController
     {
         private readonly IAdminUserService users;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -67,6 +68,8 @@
             }
 
             await this.userManager.AddToRoleAsync(user, model.Role);
+
+            TempData.AddSuccessMessage($"User {user.UserName} successfully added to the {model.Role} role.");
 
             return RedirectToAction(nameof(Index));
         }

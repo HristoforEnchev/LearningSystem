@@ -11,7 +11,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MinLength(CourseNameMaxLength)]
+        [MaxLength(CourseNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
